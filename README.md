@@ -97,18 +97,7 @@ RS(&s)->free_();
 ---
 
 ## Installation
-
-### Conan
-```bash
-conan install rs_string/0.1.0@ --build=missing
-```
-
-### vcpkg
-```bash
-vcpkg install rs-string
-```
-
-Or just drop `rs_string.h` (and optional `rs_string_fluent.h`, `rs_string_ts.h`) into your project.
+Just drop `rs_string.h` (and optional `rs_string_fluent.h`, `rs_string_ts.h`) into your project.
 
 ---
 
