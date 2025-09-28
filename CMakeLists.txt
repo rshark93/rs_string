@@ -1,0 +1,23 @@
+
+cmake_minimum_required(VERSION 3.12)
+project(rs_string_suite C)
+set(CMAKE_C_STANDARD 11)
+
+add_executable(demo main.c)
+add_executable(tests test_rs_string.c)
+add_executable(bench bench_rs_string.c)
+
+# Optional utf8proc integration (if found via pkg-config)
+find_package(PkgConfig QUIET)
+if(PKG_CONFIG_FOUND)
+  pkg_check_modules(UTF8PROC QUIET utf8proc)
+  if(UTF8PROC_FOUND)
+    add_library(rs_utf8proc_adapter rs_string_utf8proc.c)
+    target_compile_definitions(rs_utf8proc_adapter PRIVATE USE_UTF8PROC)
+    target_include_directories(rs_utf8proc_adapter PRIVATE ${UTF8PROC_INCLUDE_DIRS})
+    target_link_libraries(rs_utf8proc_adapter PRIVATE ${UTF8PROC_LIBRARIES})
+    message(STATUS "utf8proc found: enabling adapter")
+  else()
+    message(STATUS "utf8proc not found; adapter will not be built")
+  endif()
+endif()
